@@ -1,28 +1,35 @@
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { fireDb } from "../firebaseConfig";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { FcLike, FcComments } from "react-icons/fc";
+import { FcLike, FcComments, FcShare } from "react-icons/fc";
 import { FaRegWindowClose } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { toast } from "react-toastify";
 import { Container } from "react-bootstrap";
+
 function PostDesc() {
   const currentUser = JSON.parse(
     localStorage.getItem("reactgram-offical-user")
   );
   const [showLikes, setShowLikes] = useState(false);
   const [post, setPost] = useState(null);
+  const [likedPost, setLikedPost] = useState(false);
   const params = useParams();
-
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const getData = () => {
     dispatch({ type: "showLoading" });
     getDoc(doc(fireDb, "posts", params.id))
       .then((response) => {
         setPost({ ...response.data(), id: response.id });
+        if (response.data().likes.find((user) => user.id === currentUser.id)) {
+          setLikedPost(true);
+        } else {
+          setLikedPost(false);
+        }
         dispatch({ type: "hideLoading" });
       })
       .catch((error) => {
@@ -35,11 +42,16 @@ function PostDesc() {
   }, []);
 
   const likeUnlikeHandler = () => {
-    const updatedLikes = post.likes;
-    updatedLikes.push({
-      id: currentUser.id,
-      email: currentUser.email,
-    });
+    let updatedLikes = post.likes;
+    if (likedPost) {
+      updatedLikes = post.likes.filter((user) => user.id !== currentUser.id);
+    } else {
+      updatedLikes.push({
+        id: currentUser.id,
+        email: currentUser.email,
+      });
+    }
+
     setDoc(doc(fireDb, "posts", post.id), {
       ...post,
       likes: updatedLikes,
@@ -97,6 +109,11 @@ function PostDesc() {
                 </div>
                 <FcComments className="h4" />
                 <p>{post.comments.length}</p>
+                <FcShare
+                  className="h4 cursor-pointer"
+                  onClick={() => navigate(`/sharepost/${post.id}`)}
+
+                />
               </div>
             </Card.Body>
           </Card>
