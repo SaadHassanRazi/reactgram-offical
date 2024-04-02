@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import { toast } from "react-toastify";
 function Header() {
   const location = useLocation();
+  const user = JSON.parse(localStorage.getItem("reactgram-offical-user"));
   const menu = [
     {
       title: "Home",
@@ -21,7 +22,7 @@ function Header() {
     },
     {
       title: "Profile",
-      path: "/profile",
+      path: `/profile/${user.id}`,
     },
   ];
   const navigate = useNavigate();

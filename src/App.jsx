@@ -9,6 +9,7 @@ import AddPost from "./pages/AddPost";
 import PostDesc from "./pages/PostDesc";
 import SharePost from "./pages/SharePost";
 import Shares from "./pages/Shares";
+import Profile from "./pages/Profile";
 
 const App = () => {
   return (
@@ -29,6 +30,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Shares />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/profile/:id"
+            element={
+              <ProtectedRoute>
+                <Profile />
               </ProtectedRoute>
             }
           ></Route>
