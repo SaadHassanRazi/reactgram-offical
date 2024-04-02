@@ -9,7 +9,7 @@ function Post({ post }) {
     <div>
       <Card
         onClick={() => {
-          navigate(`post/${post.id}`);
+          navigate(`/post/${post.id}`);
         }}
         className="mx-auto my-3 cursor-pointer"
         style={{ width: "300px" }}

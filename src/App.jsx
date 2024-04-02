@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import AddPost from "./pages/AddPost";
 import PostDesc from "./pages/PostDesc";
 import SharePost from "./pages/SharePost";
+import Shares from "./pages/Shares";
 
 const App = () => {
   return (
@@ -20,6 +21,14 @@ const App = () => {
             element={
               <ProtectedRoute>
                 <Home />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/shares"
+            element={
+              <ProtectedRoute>
+                <Shares />
               </ProtectedRoute>
             }
           ></Route>
