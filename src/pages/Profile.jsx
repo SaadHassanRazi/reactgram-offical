@@ -7,16 +7,19 @@ import {
   getDocs,
   getDoc,
   doc,
+  deleteDoc,
 } from "firebase/firestore";
 import { fireDb } from "../firebaseConfig";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Post from "../components/Post";
 import { Col, Row } from "react-bootstrap";
+import { toast } from "react-toastify";
 function Profile() {
   const currentUser = JSON.parse(
     localStorage.getItem("reactgram-offical-user")
   );
+  const navigate = useNavigate();
   const dispatch = useDispatch("");
   const params = useParams();
   const [post, setPost] = useState([]);
@@ -46,6 +49,7 @@ function Profile() {
     getData();
     getUser();
   }, []);
+
   return (
     <DefaultLayout>
       {user && (
@@ -68,6 +72,24 @@ function Profile() {
                 return (
                   <Col className="m-auto" lg>
                     <Post post={post} />
+                    <button
+                      className="btn btn-primary mx-auto"
+                      onClick={() => {
+                        const docRef = doc(fireDb, "posts", post.id);
+                        deleteDoc(docRef)
+                          .then(() => {
+                            toast.success("Post Deleted Successfully");
+                            navigate("/");
+                          })
+                          .catch((error) => {
+                            toast.error(
+                              "Error Deleting Post: " + error.message
+                            );
+                          });
+                      }}
+                    >
+                      Delete
+                    </button>
                   </Col>
                 );
               })}

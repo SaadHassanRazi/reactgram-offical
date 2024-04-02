@@ -46,6 +46,7 @@ function Post({ post }) {
           </div>
         </Card.Body>
       </Card>
+
       {/* <img
         src=
         alt=""

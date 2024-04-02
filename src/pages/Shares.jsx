@@ -21,8 +21,9 @@ const Shares = () => {
   const getData = async () => {
     dispatch({ type: "showLoading" });
     const q = await getDoc(doc(fireDb, "users", currentUser.id));
-    console.log(q.data().shares);
+
     setData(q.data().shares);
+    console.log(q.data().shares);
     dispatch({ type: "hideLoading" });
   };
   useEffect(() => {
@@ -40,19 +41,20 @@ const Shares = () => {
             {currentUser.email.slice(0, -10)}
           </span>{" "}
         </h2>
-
-        <Row className="mx-auto ">
-          {data.map((post) => {
-            return (
-              <Col className="m-auto border" lg>
-                <p className="text-secondary">
-                  Shared By: {post.sharedBy.email}
-                </p>
-                <Post post={post} />
-              </Col>
-            );
-          })}
-        </Row>
+        {data && (
+          <Row className="mx-auto ">
+            {data.map((post) => {
+              return (
+                <Col className="m-auto border" lg>
+                  <p className="text-secondary">
+                    Shared By: {post.sharedBy.email}
+                  </p>
+                  <Post post={post} />
+                </Col>
+              );
+            })}
+          </Row>
+        )}
       </DefaultLayout>
     </>
   );

@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { fireDb } from "../firebaseConfig";
 import { useNavigate, useParams } from "react-router-dom";
@@ -64,6 +64,7 @@ function PostDesc() {
         toast.error("Something Went Wrong");
       });
   };
+
   return (
     <>
       <Container>
@@ -112,12 +113,12 @@ function PostDesc() {
                 <FcShare
                   className="h4 cursor-pointer"
                   onClick={() => navigate(`/sharepost/${post.id}`)}
-
                 />
               </div>
             </Card.Body>
           </Card>
         )}
+
         {showLikes && (
           <div>
             <FaRegWindowClose
