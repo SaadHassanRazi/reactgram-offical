@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { toast } from "react-toastify";
 import { Container } from "react-bootstrap";
+import { onLog } from "firebase/app";
 
 function PostDesc() {
   const currentUser = JSON.parse(
@@ -17,6 +18,8 @@ function PostDesc() {
   const [showLikes, setShowLikes] = useState(false);
   const [post, setPost] = useState(null);
   const [likedPost, setLikedPost] = useState(false);
+  const [showComments, setShowComments] = useState(false);
+  const [commentText, setCommentText] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -64,7 +67,28 @@ function PostDesc() {
         toast.error("Something Went Wrong");
       });
   };
+  const addComments = () => {
+    let updatedComments = post.comments;
 
+    updatedComments.push({
+      id: currentUser.id,
+      email: currentUser.email,
+      commentText,
+    });
+
+    setDoc(doc(fireDb, "posts", post.id), {
+      ...post,
+      comments: updatedComments,
+    })
+      .then(() => {
+        getData();
+
+        setCommentText("");
+      })
+      .catch(() => {
+        toast.error("Something Went Wrong");
+      });
+  };
   return (
     <>
       <Container>
@@ -109,7 +133,14 @@ function PostDesc() {
                   </Link>
                 </div>
                 <FcComments className="h4" />
-                <p>{post.comments.length}</p>
+                <p
+                  onClick={() => {
+                    setShowComments(true);
+                    toast.success("Comment Section Opened");
+                  }}
+                >
+                  {post.comments.length}
+                </p>
                 <FcShare
                   className="h4 cursor-pointer"
                   onClick={() => navigate(`/sharepost/${post.id}`)}
@@ -118,7 +149,46 @@ function PostDesc() {
             </Card.Body>
           </Card>
         )}
-
+        {showComments && (
+          <>
+            <FaRegWindowClose
+              className="h2 mx-auto cursor-pointer"
+              onClick={() => {
+                setShowComments(false);
+                toast.success("Comment Section Closed");
+              }}
+            />
+            <h1>Comments</h1>
+            {post.comments.map((item) => {
+              return (
+                <div className="border rounded border-dark text-center">
+                  <h3>{item.commentText}</h3>
+                  <p className="">By {item.email.slice(0, -10)}</p>
+                </div>
+              );
+            })}
+            <div className="border">
+              <h1 className="mt-10">Add Comment</h1>
+              <textarea
+                name=""
+                value={commentText}
+                className=""
+                typeof="text"
+                class="border d-flex w-100 border-dark rounded p-2"
+                onChange={(e) => {
+                  setCommentText(e.target.value);
+                }}
+                id=""
+                cols="20"
+                rows="6"
+              ></textarea>
+            </div>
+            <button className="btn btn-primary m-auto" onClick={addComments}>
+              {" "}
+              Add Comment
+            </button>
+          </>
+        )}
         {showLikes && (
           <div>
             <FaRegWindowClose

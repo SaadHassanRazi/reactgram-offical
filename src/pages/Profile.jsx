@@ -34,12 +34,9 @@ function Profile() {
       temp.push({ ...doc.data(), id: doc.id });
     });
     const filteredPosts = temp.filter((post) => post.user.id === params.id);
-    console.log(filteredPosts);
     setPost(filteredPosts);
-    console.log(user.email);
     dispatch({ type: "hideLoading" });
   };
-
   const getUser = async () => {
     const result = await getDoc(doc(fireDb, "users", params.id));
     setUser(result.data());
@@ -70,21 +67,23 @@ function Profile() {
             <Row className="mx-auto ">
               {post.map((post) => {
                 return (
-                  <Col className="m-auto" lg>
+                  <Col className="m-auto mb-4" lg>
                     <Post post={post} />
                     <button
-                      className="btn btn-primary mx-auto"
+                      className="btn btn-primary d-flex mx-auto"
                       onClick={() => {
                         const docRef = doc(fireDb, "posts", post.id);
+
                         deleteDoc(docRef)
                           .then(() => {
                             toast.success("Post Deleted Successfully");
-                            navigate("/");
+                            getData();
                           })
                           .catch((error) => {
                             toast.error(
                               "Error Deleting Post: " + error.message
                             );
+                            console.log(error.message);
                           });
                       }}
                     >
