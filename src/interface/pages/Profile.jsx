@@ -1,52 +1,50 @@
 import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
-import {
-  collection,
-  query,
-  where,
-  getDocs,
-  getDoc,
-  doc,
-  deleteDoc,
-} from "firebase/firestore";
-import { fireDb } from "../firebaseConfig";
+import { getDoc, doc, deleteDoc } from "firebase/firestore";
+import { fireDb } from "../../firebaseConfig";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../components/Post";
 import { Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
+import fetchDataFromFirestore from "../../firebaseUtilities/firestoreUtil";
 function Profile() {
   const currentUser = JSON.parse(
     localStorage.getItem("reactgram-offical-user")
   );
-  const navigate = useNavigate();
   const dispatch = useDispatch("");
   const params = useParams();
   const [post, setPost] = useState([]);
   const [user, setUser] = useState(null);
+  const [userData, setUserData] = useState([]);
   const getData = async () => {
     dispatch({ type: "showLoading" });
-    const q = query(collection(fireDb, "posts"));
-    const temp = [];
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      temp.push({ ...doc.data(), id: doc.id });
-    });
-    const filteredPosts = temp.filter((post) => post.user.id === params.id);
+    const tempData = await fetchDataFromFirestore(fireDb, "posts");
+    const filteredPosts = tempData.filter((post) => post.user.id === params.id);
     setPost(filteredPosts);
     dispatch({ type: "hideLoading" });
   };
   const getUser = async () => {
     const result = await getDoc(doc(fireDb, "users", params.id));
     setUser(result.data());
+
     dispatch({ type: "hideLoading" });
   };
+
+  const getUserData = async () => {
+    const tempData = await fetchDataFromFirestore(fireDb, "users");
+
+    const userEmail = tempData.map((user) => {
+      return user.email;
+    });
+    setUserData(userEmail);
+  };
+
   useEffect(() => {
     getData();
     getUser();
+    getUserData();
   }, []);
-
   return (
     <DefaultLayout>
       {user && (
@@ -93,6 +91,26 @@ function Profile() {
                 );
               })}
             </Row>
+            <div className="border">
+              <h1>User Profiles</h1>
+              <p>List of Users who have logged in to Reactgram</p>
+              {userData && (
+                <>
+                  {userData.map((email, emailIndex) => {
+                    return (
+                      <ul className="my-5" key={emailIndex}>
+                        <li>
+                          <span className="rounded-circle p-3 px-4 my-auto text-bold text-white bg-dark text-uppercase">
+                            {email.slice(0, 1).toUpperCase()}
+                          </span>
+                          <span>{email.slice(0, -10).toUpperCase()}</span>
+                        </li>
+                      </ul>
+                    );
+                  })}
+                </>
+              )}
+            </div>
           </div>
         </>
       )}

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { app, fireDb } from "../firebaseConfig";
+import { app, fireDb } from "../../firebaseConfig";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import Loaders from "../components/Loaders";

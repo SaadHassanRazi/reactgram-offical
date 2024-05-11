@@ -1,6 +1,6 @@
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { fireDb } from "../firebaseConfig";
+import { fireDb } from "../../firebaseConfig";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FcLike, FcComments, FcShare } from "react-icons/fc";
@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import Card from "react-bootstrap/Card";
 import { toast } from "react-toastify";
 import { Container } from "react-bootstrap";
-import { onLog } from "firebase/app";
 
 function PostDesc() {
   const currentUser = JSON.parse(

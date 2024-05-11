@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import DefaultLayout from "../components/DefaultLayout";
+import DefaultLayout from '../components/DefaultLayout'
 import {
   collection,
   query,
@@ -9,7 +9,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-import { fireDb } from "../firebaseConfig";
+import { fireDb } from "../../firebaseConfig";
 import { useDispatch } from "react-redux";
 import Post from "../components/Post";
 import { Col, Row } from "react-bootstrap";

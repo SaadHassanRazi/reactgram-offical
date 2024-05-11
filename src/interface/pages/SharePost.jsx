@@ -9,7 +9,7 @@ import {
   doc,
   setDoc,
 } from "firebase/firestore";
-import { fireDb } from "../firebaseConfig";
+import { fireDb } from "../../firebaseConfig";
 import { useDispatch } from "react-redux";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";

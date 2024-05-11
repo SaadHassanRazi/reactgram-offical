@@ -2,7 +2,7 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { app, fireDb } from "../firebaseConfig";
+import { app, fireDb } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import Loaders from "../components/Loaders";
@@ -26,7 +26,7 @@ const Login = () => {
           toast.success("Login Success");
           navigate("/");
           dispatch({ type: "hideLoading" });
-        });
+        }); 
       })
       .catch((error) => {
         toast.error(error.message);

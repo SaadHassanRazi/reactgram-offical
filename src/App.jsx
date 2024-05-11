@@ -1,15 +1,15 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
-import Login from "./pages/Login";
+import Home from "./interface/pages/Home";
+import Register from "./interface/pages/Register";
+import Login from "./interface/pages/Login";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-import AddPost from "./pages/AddPost";
-import PostDesc from "./pages/PostDesc";
-import SharePost from "./pages/SharePost";
-import Shares from "./pages/Shares";
-import Profile from "./pages/Profile";
+import AddPost from "./interface/pages/AddPost";
+import PostDesc from "./interface/pages/PostDesc";
+import SharePost from "./interface/pages/SharePost";
+import Shares from "./interface/pages/Shares";
+import Profile from "./interface/pages/Profile";
 
 const App = () => {
   return (
