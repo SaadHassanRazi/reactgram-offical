@@ -4,7 +4,7 @@ import App from "./App.jsx";
 import "./index.css";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import { loaderReducer } from "./redux/LoaderReducer.jsx";
+import { loaderReducer } from "./utilities/redux/LoaderReducer.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 <link
   rel="stylesheet"
