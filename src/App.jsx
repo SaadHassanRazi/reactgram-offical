@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import RouteConfig from "./frameworkUI/Routes";
+import RouteConfig from "./frameworkUI/RoutesHandling/Routes";
 const App = () => {
   return (
     <>
