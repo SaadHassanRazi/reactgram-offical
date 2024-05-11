@@ -7,7 +7,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Post from "../components/Post";
 import { Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
-import fetchDataFromFirestore from "../../firebaseUtilities/firestoreUtil";
+import fetchDataFromFirestore from "../../utilities/firebaseUtilities/firestoreUtil";
 function Profile() {
   const currentUser = JSON.parse(
     localStorage.getItem("reactgram-offical-user")

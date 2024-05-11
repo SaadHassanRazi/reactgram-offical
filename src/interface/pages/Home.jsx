@@ -4,7 +4,7 @@ import DefaultLayout from "../components/DefaultLayout";
 import { useDispatch } from "react-redux";
 import Post from "../components/Post";
 import { Col, Row, InputGroup, Form, Button } from "react-bootstrap";
-import fetchDataFromFirestore from "../../firebaseUtilities/firestoreUtil";
+import fetchDataFromFirestore from "../../utilities/firebaseUtilities/firestoreUtil";
 import { fireDb } from "../../firebaseConfig";
 
 const Home = () => {

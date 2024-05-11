@@ -1,5 +1,4 @@
 import { collection, query, getDocs } from "firebase/firestore";
-import { fireDb } from "../firebaseConfig";
 
 export const fetchDataFromFirestore = async (database, collectionStorage) => {
   const q = query(collection(database, collectionStorage));
