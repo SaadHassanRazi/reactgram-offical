@@ -1,7 +1,7 @@
 // DeleteButton.js
 import React from "react";
 import { deleteDoc, doc } from "firebase/firestore";
-import { fireDb } from "../../../firebaseConfig";
+import { fireDb } from "../../firebaseConfig";
 import { toast } from "react-toastify";
 
 const DeleteButton = ({ postId,collectionName, onDelete }) => {

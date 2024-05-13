@@ -8,7 +8,7 @@ import Post from "../components/Post";
 import { Col, Row } from "react-bootstrap";
 import { toast } from "react-toastify";
 import fetchDataFromFirestore from "../../utilities/firebaseUtilities/firestoreUtil";
-import DeleteButton from "../../utilities/firebaseUtilities/deleteAction/DeleteAction";
+import DeleteButton from "../../utilities/deleteAction/DeleteAction";
 function Profile() {
   const currentUser = JSON.parse(
     localStorage.getItem("reactgram-offical-user")
@@ -68,7 +68,11 @@ function Profile() {
                 return (
                   <Col className="m-auto mb-4" lg>
                     <Post post={post} />
-                    <DeleteButton postId={post.id} collectionName={'posts'} onDelete={getData}/>
+                    <DeleteButton
+                      postId={post.id}
+                      collectionName={"posts"}
+                      onDelete={getData}
+                    />
                   </Col>
                 );
               })}
