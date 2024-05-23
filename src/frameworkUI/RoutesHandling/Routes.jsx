@@ -4,7 +4,7 @@ import Home from "../../interface/pages/Home";
 import Register from "../../interface/pages/Register";
 import Login from "../../interface/pages/Login";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import AddPost from "../../interface/pages/AddPost";
 import PostDesc from "../../interface/pages/PostDesc";
 import SharePost from "../../interface/pages/SharePost";
