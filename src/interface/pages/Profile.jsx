@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 import DefaultLayout from "../components/DefaultLayout";
-import { getDoc, doc, deleteDoc } from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import { fireDb } from "../../firebaseConfig";
 import { useDispatch } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Post from "../components/Post";
 import { Col, Row } from "react-bootstrap";
-import { toast } from "react-toastify";
 import fetchDataFromFirestore from "../../utilities/firebaseUtilities/firestoreUtil";
 import DeleteButton from "../../utilities/deleteAction/DeleteAction";
+
 function Profile() {
   const currentUser = JSON.parse(
     localStorage.getItem("reactgram-offical-user")
   );
-  const dispatch = useDispatch("");
+  const dispatch = useDispatch();
   const params = useParams();
   const [post, setPost] = useState([]);
   const [user, setUser] = useState(null);
   const [userData, setUserData] = useState([]);
+
   const getData = async () => {
     dispatch({ type: "showLoading" });
     const tempData = await fetchDataFromFirestore(fireDb, "posts");
@@ -25,19 +26,16 @@ function Profile() {
     setPost(filteredPosts);
     dispatch({ type: "hideLoading" });
   };
+
   const getUser = async () => {
     const result = await getDoc(doc(fireDb, "users", params.id));
     setUser(result.data());
-
     dispatch({ type: "hideLoading" });
   };
 
   const getUserData = async () => {
     const tempData = await fetchDataFromFirestore(fireDb, "users");
-
-    const userEmail = tempData.map((user) => {
-      return user.email;
-    });
+    const userEmail = tempData.map((user) => user.email);
     setUserData(userEmail);
   };
 
@@ -46,15 +44,16 @@ function Profile() {
     getUser();
     getUserData();
   }, []);
+
   return (
     <DefaultLayout>
-      {user && (
+      {user ? (
         <>
           <div>
             <div className="text-uppercase d-flex gap-2">
               <p className="rounded-circle p-3 px-4 my-auto text-bold text-white bg-dark ">
                 {user.email.slice(0, 1)}
-              </p>{" "}
+              </p>
               <p className="my-auto">{user.email.slice(0, -10)}</p>
             </div>
             <p className="">Bio: {user.bio}</p>
@@ -64,9 +63,9 @@ function Profile() {
             <p>Posts Uploaded By: {user.email}</p>
 
             <Row className="mx-auto ">
-              {post.map((post) => {
-                return (
-                  <Col className="m-auto mb-4" xxl>
+              {post.length > 0 ? (
+                post.map((post) => (
+                  <Col className="m-auto mb-4" key={post.id} xxl>
                     <Post post={post} />
                     <DeleteButton
                       postId={post.id}
@@ -74,31 +73,15 @@ function Profile() {
                       onDelete={getData}
                     />
                   </Col>
-                );
-              })}
-            </Row>
-            <div className="border">
-              <h1>User Profiles</h1>
-              <p>List of Users who have logged in to Reactgram</p>
-              {userData && (
-                <>
-                  {userData.map((email, emailIndex) => {
-                    return (
-                      <ul className="my-5" key={emailIndex}>
-                        <li>
-                          <span className="rounded-circle p-3 px-4 my-auto text-bold text-white bg-dark text-uppercase">
-                            {email.slice(0, 1).toUpperCase()}
-                          </span>
-                          <span>{email.slice(0, -10).toUpperCase()}</span>
-                        </li>
-                      </ul>
-                    );
-                  })}
-                </>
+                ))
+              ) : (
+                <p>No profile post available.</p>
               )}
-            </div>
+            </Row>
           </div>
         </>
+      ) : (
+        <p>No profile data available.</p>
       )}
     </DefaultLayout>
   );
