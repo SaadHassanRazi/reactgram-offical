@@ -77,7 +77,11 @@ const Login = () => {
           }}
         >
           <div className="col-lg">
-            <img src={LoginImage} className="img-fluid w-50 d-flex mx-auto mx-lg-0" alt="" />
+            <img
+              src={LoginImage}
+              className="img-fluid w-50 d-flex mx-auto mx-lg-0"
+              alt=""
+            />
           </div>
           <div className="col-lg">
             <div className="">
@@ -97,9 +101,7 @@ const Login = () => {
                     setEmail(e.target.value);
                   }}
                   className={`form-control form-control-lg ${
-                    isDarkMode
-                      ? "bg-white text-dark"
-                      : "bg-secondary text-white"
+                    isDarkMode ? "bg-white text-dark" : " text-dark"
                   } rounded-md pl-5`}
                 />
               </div>
@@ -115,9 +117,7 @@ const Login = () => {
                     setPassword(e.target.value);
                   }}
                   className={`form-control form-control-lg ${
-                    isDarkMode
-                      ? "bg-white text-dark"
-                      : "bg-secondary text-white"
+                    isDarkMode ? "bg-white text-dark" : "text-dark"
                   } rounded-md pl-5`}
                 />
               </div>

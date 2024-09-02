@@ -67,11 +67,11 @@ const Home = () => {
       <div className="border">
         {showSearchResults && filterSearch.length > 0 ? (
           <>
-            <Button variant="danger" onClick={handleCloseSearch}>
+            <Button variant="danger text-dark" onClick={handleCloseSearch}>
               Close Search
             </Button>
             {filterSearch.map((post) => (
-              <Col key={post.id} className="m-auto" lg>
+              <Col key={post.id} className="m-auto bg-dark py-1 rounded" lg>
                 <Post post={post} />
               </Col>
             ))}
@@ -82,7 +82,7 @@ const Home = () => {
       </div>
       <Row className="mx-auto ">
         {data.map((post) => (
-          <Col key={post.id} className="m-auto" lg>
+          <Col key={post.id} className="m-auto " xxl>
             <Post post={post} />
           </Col>
         ))}

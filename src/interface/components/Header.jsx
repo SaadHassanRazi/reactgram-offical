@@ -1,9 +1,7 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
 import { toast } from "react-toastify";
+
 function Header() {
   const location = useLocation();
   const user = JSON.parse(localStorage.getItem("reactgram-offical-user"));
@@ -31,37 +29,37 @@ function Header() {
     navigate("/login");
     toast.success("Logout Successful");
   };
+
   return (
-    <Navbar expand="lg" bg="dark" className="rounded" data-bs-theme="dark">
-      <Container>
-        <Navbar.Brand>ReactGram</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            {menu.map((item) => {
-              return (
-                <Link
-                  to={item.path}
-                  className={`nav-link  ${
-                    item.path === location.pathname
-                      ? "border bg-white  text-dark rounded"
-                      : "text-white"
-                  }`}
-                >
-                  {item.title}
-                </Link>
-              );
-            })}
-            <h1
-              className="nav-link m-auto cursor-pointer"
-              onClick={logoutHandler}
-            >
-              Logout
-            </h1>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <div
+      className="d-flex flex-column vh-100 bg-dark p-3"
+      style={{ width: "20%", position: "fixed", top: 0, left: 0 }}
+    >
+      <div className="mb-4">
+        <h2 className="text-white">ReactGram</h2>
+      </div>
+      <div className="flex-grow-1">
+        {menu.map((item) => (
+          <Link
+            to={item.path}
+            className={`d-block py-2 px-3 my-2 nav-link ${
+              item.path === location.pathname
+                ? "bg-white text-dark rounded"
+                : "text-white"
+            }`}
+            key={item.title}
+          >
+            {item.title}
+          </Link>
+        ))}
+      </div>
+      <h1
+        className="nav-link mt-auto py-2 px-3 cursor-pointer text-white"
+        onClick={logoutHandler}
+      >
+        Logout
+      </h1>
+    </div>
   );
 }
 

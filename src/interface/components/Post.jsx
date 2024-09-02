@@ -3,7 +3,8 @@ import Card from "react-bootstrap/Card";
 import "../components/Component.css";
 import { FcLike, FcComments } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-function Post({ post }) {
+function 
+Post({ post }) {
   const navigate = useNavigate();
   return (
     <div>
@@ -12,7 +13,7 @@ function Post({ post }) {
           navigate(`/post/${post.id}`);
         }}
         className="mx-auto my-3 cursor-pointer"
-        style={{ width: "300px" }}
+        style={{ width: "350px" }}
       >
         <Card.Body>
           <Card.Text className="text-uppercase d-flex gap-2">

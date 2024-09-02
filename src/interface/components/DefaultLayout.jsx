@@ -7,10 +7,10 @@ function DefaultLayout(props) {
   const { loading } = useSelector((store) => store);
   return (
     <>
-      <div className="container border">
+      <div className="container-fluid">
         {loading && <Loaders />}
         <Header />
-        <div className="mt-3">{props.children}</div>
+        <div className="mt-3 ms-auto"s style={{width:'80%'} }>{props.children}</div>
       </div>
     </>
   );

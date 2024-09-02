@@ -60,7 +60,7 @@ const Shares = () => {
           <Row className="mx-auto ">
             {data.map((post) => {
               return (
-                <Col className="m-auto border" lg key={post.id}>
+                <Col className="m-auto border" xxl key={post.id}>
                   <p className="text-secondary">
                     Shared By: {post.sharedBy.email}
                   </p>

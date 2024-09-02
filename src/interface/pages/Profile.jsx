@@ -66,7 +66,7 @@ function Profile() {
             <Row className="mx-auto ">
               {post.map((post) => {
                 return (
-                  <Col className="m-auto mb-4" lg>
+                  <Col className="m-auto mb-4" xxl>
                     <Post post={post} />
                     <DeleteButton
                       postId={post.id}
